@@ -26,6 +26,11 @@ class ControlActivity:AppCompatActivity() {
         lateinit var m_bluetoothAdapter: BluetoothAdapter
         var m_isConnected: Boolean = false
         lateinit var m_address: String
+        val Forward = "8"
+        val Back = "2"
+        val Left = "4"
+        val Right = "6"
+        val Stop = "0"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,43 +43,20 @@ class ControlActivity:AppCompatActivity() {
         setContentView(R.layout.control_layout)
         m_address = intent.getStringExtra(SelectDeviceActivity.EXTRA_ADDRESS)
         ConnectToDevice(this).execute()
-        forward.setOnClickListener { sendCommand("8") }
-        back.setOnClickListener { sendCommand("2") }
-        left.setOnClickListener { sendCommand("4") }
-        right.setOnClickListener { sendCommand("6") }
-        stop.setOnClickListener { sendCommand("0") }
-        disconnect.setOnClickListener { sendCommand("0"); disconnect() }
+        forward.setOnClickListener { sendCommand(Forward) }
+        back.setOnClickListener { sendCommand(Back) }
+        left.setOnClickListener { sendCommand(Left) }
+        right.setOnClickListener { sendCommand( Right) }
+        stop.setOnClickListener { sendCommand(Stop) }
+        disconnect.setOnClickListener { sendCommand(Stop); disconnect() }
         route.setOnClickListener {
             launch {
                 if (queue.hasNext()) {
                     val arr = this.toString()
-                    for (el in arr) {
-                        if (el == '8') {
-                            sendCommand("8")
-                            delay(4000)
-                            }
-                        if (el == '6') {
-                            sendCommand("6")
-                            delay(4000)
-                            }
-                        if (el == '2') {
-                            sendCommand("2")
-                            delay(4000)
-                            }
-                        if (el == '4') {
-                            sendCommand("4")
-                            delay(4000)
-                            }
-                        if (el == '0') {
-                            sendCommand("0")
-                            delay(4000)
-                            }
-                        }
-                } else {
-                    println("No queue")
+                    sendCommand(arr)
+                    delay(4000)
                 }
             }
-            sendCommand("0")
         }
     }
 
