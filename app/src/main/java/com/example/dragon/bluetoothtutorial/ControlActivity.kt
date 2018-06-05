@@ -31,6 +31,7 @@ class ControlActivity:AppCompatActivity() {
         val Left = "4"
         val Right = "6"
         val Stop = "0"
+        val Timer = 4000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +55,7 @@ class ControlActivity:AppCompatActivity() {
                 if (queue.hasNext()) {
                     val arr = this.toString()
                     sendCommand(arr)
-                    delay(4000)
+                    delay(Timer)
                 }
             }
         }
